@@ -14,6 +14,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #314755;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #26a0da, #314755);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #26a0da, #314755); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
 }
 
 code {
@@ -21,13 +25,17 @@ code {
     monospace;
 }
 
-
+input{
+  height:45px;
+  font-size: 30px;
+  width:100%;
+  padding-left: 15px;
+}
 .listContainer{
-  width:520px;
+  width:500px;
   margin:auto;
-  background: #ccc;
   padding:0px;
-
+  margin-top:200px;
 }
 .formContainer{
   width:500px;
@@ -44,13 +52,66 @@ li{
   display: flex;
   justify-content: space-between;
   border:1px solid white;
+  height:40px;
+  font-size: 25px;
 }
 .complete{
+  color:transparent;
   float: left;
-  
+  width:35px;
+  font-size: 25px;
+  border:1px solid white;
+  border-radius: 50%;
+  text-align: center;
+}
+.complete:active{
+  color:black;
+  font-size: 25px;
+  width:35px;
+}
+.complete:hover{
+  cursor:pointer;
 }
 .delete{
-
+  color:rgb(131, 0, 0);
   text-align: right;
+  background: transparent;
+  font-size: 25px;
+  cursor: pointer;
+  height: 100%;
   
+}
+.checked{
+  color:black;
+  font-size: 25px;
+  text-align: center;
+  width:35px;
+  
+  border:1px solid white;
+  border-radius: 50%;
+}
+.line{
+  text-align: center;
+  text-decoration: line-through;
+  color:#333;
+}
+.noLine{
+  text-align: center;
+}
+button{
+
+  height:30px;
+  background:transparent;
+  font-size: 20px;
+
+}
+.buttons{
+  display: flex;
+  justify-content: center;
+  text-align: center;
+
+  
+}
+.count{
+  font-weight: bolder;
 }

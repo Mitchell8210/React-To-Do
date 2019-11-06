@@ -13,11 +13,10 @@ import axios from 'axios'
 
 export function addItem(item){
     return dispatch =>{
-        axios.post('/items', {name:item}).then(resp =>{
+        axios.post('/items', {name:item , active:false}).then(resp =>{
             dispatch({
                 type: "ADD_ITEM",
-                payload: resp.data,
-                completed: false
+                payload: resp.data
             })
         })
     }
@@ -41,34 +40,56 @@ export function listItems(){
         })
     }
 }
-export function completeItem(id){
+export function completeItem(id,status){
     return dispatch =>{
-        axios.patch(`/items/${id}`,{completed:true}).then(resp =>{
+        if(status === false){
+        axios.patch(`/items/${id}`,{active:true}).then(resp =>{
             dispatch({
                 type:'COMPLETED_ITEM',
-                payload: resp.data
+                payload: resp.data,
+                id:id
+            })
+        })
+    } else {
+        axios.patch(`/items/${id}`,{active:false}).then(resp =>{
+            dispatch({
+                type:'COMPLETED_ITEM',
+                payload: resp.data,
+                id:id
             })
         })
     }
+    }
 }
-export function showComplete(){
-    return dispatch => {
-        axios.get(`/items?completed=true`).then(resp =>{
-            dispatch({
-                type:'DISPLAY_COMPLETED',
-                payload: resp.data
-            })
+
+export function addFilter(filter){
+    return dispatch =>{
+        dispatch({
+            type: 'FILTER',
+            payload:filter
+            
         })
     }
 }
 
-export function showActive(){
-    return dispatch => {
-        axios.get(`/items`).then(resp => {
-            dispatch({
-                type: 'DISPLAY_AVTIVE',
-                payload: resp.data
+export function clearCompleted(items){
+    return dispatch =>{
+        axios.all([
+            items.map(e=>{
+                axios.delete(`/items/${e.id}`).then(resp=>{
+                    dispatch(listItems())
+                })
             })
-        })
+            
+        ])
+            // axios.delete(`items?active=true`).then(resp=>{
+            //     dispatch(listItems())
+            // }) 
     }
 }
+
+// export function showAll(){
+//     return dispatch =>{
+//         dispatch(listItems())
+//     }
+// }

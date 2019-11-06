@@ -1,5 +1,7 @@
+
 const initialState = {
-  items: []
+  items: [],
+  filter: 'all'
 }
 
 export default function(state = initialState, action) {
@@ -9,15 +11,22 @@ export default function(state = initialState, action) {
     case 'LIST_ITEMS': 
       return {...state, items: action.payload}
     case 'COMPLETED_ITEM':
-      return {...state}
+        return {...state, items: state.items.map(item =>{
+          if(item.id === action.id){
+            item.active = !item.active
+          }  
+          return item
+        })}
     case 'DISPLAY_COMPLETED':
-      return {...state}
+       return {...state, items:action.payload}
     case 'DISPLAY_ALL':
       return {...state, items: action.payload}
-    case 'DISPLAY_ACTIVE':
+    case 'FILTER':
+      return {...state, filter: action.payload}
+    case 'CLEAR':
       return {...state, items: action.payload}
     // actions
     default:
-      return state
+      return state 
   }
 }
